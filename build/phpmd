@@ -1,2 +1,2 @@
-/Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Dice/Game21.php:23	The method playGame() has a Cyclomatic Complexity of 10. The configured cyclomatic complexity threshold is 10.
+/Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Dice/Game21.php:24	The method playGame() has a Cyclomatic Complexity of 10. The configured cyclomatic complexity threshold is 10.
 /Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Router/Router.php:24	The method dispatch() has a Cyclomatic Complexity of 24. The configured cyclomatic complexity threshold is 10.
