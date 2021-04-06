@@ -24,6 +24,7 @@ class Game21
     {
         $data = [
             "header" => "Game21",
+            "title" => "Game21",
             // "message" => "Hey, this is your dice-game!",
         ];
 

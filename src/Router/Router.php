@@ -67,6 +67,7 @@ class Router
         } else if ($method === "GET" && $path === "/home21") {
             $data = [
                 "header" => "Game21",
+                "title" => "Game21",
                 "message" => "Hey, this is your dice-game!",
             ];
             $body = renderView("layout/home21.php", $data);
@@ -90,6 +91,7 @@ class Router
         } else if ($method === "GET" && $path === "/result21") {
             $data = [
                 "header" => "Game21",
+                "title" => "Game21",
                 "message" => "Hey, this is your dice-game!",
             ];
             $body = renderView("layout/result21.php", $data);
