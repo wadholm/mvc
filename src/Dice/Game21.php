@@ -68,6 +68,7 @@ class Game21
                 $_SESSION["dataWins"] += 1;
                 redirectTo(url("/result21"));
             }
+            return;
         } elseif ($roll != null && $roll == "stop") {
             // echo "Stop";
             // var_dump($roll);
@@ -91,21 +92,23 @@ class Game21
                 $_SESSION["result"] = "You lost, computer wins. ";
                 $_SESSION["dataWins"] += 1;
                 redirectTo(url("/result21"));
-            } else {
-                // echo "player wins";
-                // echo $_SESSION["playerSum"];
-                $_SESSION["result"] = "Congratulations! You won, computer lost. ";
-                $_SESSION["playerWins"] += 1;
-                redirectTo(url("/result21"));
+                return;
             }
+            // echo "player wins";
+            // echo $_SESSION["playerSum"];
+            $_SESSION["result"] = "Congratulations! You won, computer lost. ";
+            $_SESSION["playerWins"] += 1;
+            redirectTo(url("/result21"));
+
             // echo "data" . $_SESSION["dataSum"];
             // echo "player" . $_SESSION["playerSum"];
             // $_SESSION["diceSumData"] = $diceHand->sum();
             // $_SESSION["dataSum"] += $diceHand->sum();
             // $data["dataSum"] = "Sum: " . $_SESSION["dataSum"];
-        } else {
-            $body = renderView("layout/game21.php", $data);
-            sendResponse($body);
+            return;
         }
+        $body = renderView("layout/game21.php", $data);
+        sendResponse($body);
+
     }
 }

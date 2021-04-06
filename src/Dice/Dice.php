@@ -20,7 +20,7 @@ namespace Mack\Dice;
 class Dice
 {
 
-    protected int $faces;
+    protected $faces;
 
     public function __construct(int $faces = 6)
     {
@@ -28,7 +28,7 @@ class Dice
     }
     // const FACES = 6;
 
-    private ?int $roll = null;
+    private $roll = null;
 
     public function roll(): int
     {

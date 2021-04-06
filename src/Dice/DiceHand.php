@@ -18,10 +18,10 @@ namespace Mack\Dice;
  */
 class DiceHand
 {
-    private array $dices;
-    private array $graphicalDices;
-    private int $sum;
-    protected int $number;
+    private $dices;
+    private $graphicalDices;
+    private $sum;
+    protected $number;
 
     public function __construct(int $number = 2)
     {

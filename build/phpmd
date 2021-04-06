@@ -1,6 +1,2 @@
 /Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Dice/Game21.php:23	The method playGame() has a Cyclomatic Complexity of 10. The configured cyclomatic complexity threshold is 10.
-/Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Dice/Game21.php:94	The method playGame uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
-/Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Dice/Game21.php:106	The method playGame uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
 /Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Router/Router.php:24	The method dispatch() has a Cyclomatic Complexity of 24. The configured cyclomatic complexity threshold is 10.
-/Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Dice/Dice.php	-	Unexpected token: int, line: 23, col: 15, file: /Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Dice/Dice.php.
-/Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Dice/DiceHand.php	-	Unexpected token: array, line: 21, col: 13, file: /Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Dice/DiceHand.php.
