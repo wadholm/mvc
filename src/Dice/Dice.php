@@ -13,18 +13,26 @@ namespace Mack\Dice;
 //     url
 // };
 
+
 /**
  * Class Dice.
  */
 class Dice
 {
-    const FACES = 6;
+
+    protected int $faces;
+
+    public function __construct(int $faces = 6)
+    {
+        $this->faces = $faces;
+    }
+    // const FACES = 6;
 
     private ?int $roll = null;
 
     public function roll(): int
     {
-        $this->roll = rand(1, self::FACES);
+        $this->roll = rand(1, $this->faces);
         return $this->roll;
     }
 

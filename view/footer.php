@@ -1,6 +1,6 @@
 </main>
 <footer>
-    <p>This is the footer.</p>
+    <p>Game21</p>
 </footer>
 </body>
 </html>

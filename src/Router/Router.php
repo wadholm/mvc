@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mos\Router;
 
+use Mack\Dice\Game;
+use Mack\Dice\Game21;
+
 use function Mos\Functions\{
     destroySession,
     redirectTo,
@@ -57,16 +60,49 @@ class Router
             sendResponse($body);
             return;
         } else if ($method === "GET" && $path === "/dice") {
-            // $data = [
-            //     "header" => "Dice",
-            //     "message" => "Hey, this is your dice-game!",
-            // ];
-            // $body = renderView("layout/dice.php", $data);
-            // sendResponse($body);
-
-            $callable = new \Mack\Dice\Game();
+            $callable = new Game();
             $callable->playGame();
 
+            return;
+        } else if ($method === "GET" && $path === "/home21") {
+            $data = [
+                "header" => "Game21",
+                "message" => "Hey, this is your dice-game!",
+            ];
+            $body = renderView("layout/home21.php", $data);
+            sendResponse($body);
+
+
+            // $callable = new \Mack\Dice\Game21();
+            // $callable->playGame();
+
+            return;
+        } else if ($method === "POST" && $path === "/game21") {
+            $newGame = $_POST["start"] ?? null;
+            if ($newGame == "start") {
+                $_SESSION["playerSum"] = 0;
+                $_SESSION["dataSum"] = 0;
+            }
+            $callable = new Game21();
+            $callable->playGame();
+
+            return;
+        } else if ($method === "GET" && $path === "/result21") {
+            $data = [
+                "header" => "Game21",
+                "message" => "Hey, this is your dice-game!",
+            ];
+            $body = renderView("layout/result21.php", $data);
+            sendResponse($body);
+
+
+            // $callable = new \Mack\Dice\Game21();
+            // $callable->playGame();
+
+            return;
+        } else if ($method === "GET" && $path === "/home21/destroy") {
+            destroySession();
+            redirectTo(url("/home21"));
             return;
         }
 

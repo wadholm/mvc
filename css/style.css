@@ -1,0 +1,150 @@
+/* style.css */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Roboto+Slab&display=swap');
+
+
+html {
+    font-size: 100%;
+}
+
+body {
+    margin: 0;
+    line-height: 1.4;
+    font-family: 'Inter', sans-serif;
+    background-color: #fafafa;
+    color: rgb(14, 25, 43);
+}
+
+main {
+    width: 90%;
+    min-height: 25em;
+    display: block;
+    margin: 1em auto;
+}
+
+nav {
+    overflow: hidden;
+    background-color: #0e0504;
+}
+
+nav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+nav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+nav a.active {
+    background-color: rgb(243, 51, 51);
+    color: white;
+}
+
+a {
+    color: rgb(14, 25, 43);
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(0, 0, 0);
+}
+
+.session {
+    color: rgb(14, 25, 43);
+    text-decoration: underline;
+}
+
+.session:hover{
+    color: rgb(88, 88, 88);
+    text-decoration: underline;
+}
+
+label {
+    display: block;
+}
+
+button {
+    background-color: rgb(236, 236, 236);
+    border: 2px solid black;
+    padding: 0.5em 1em;
+    margin: 0.5em 0.1em 0.5em 0;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    display: inline-block;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: rgb(207, 207, 207);
+}
+
+.reset,
+.play {
+    background-color: rgb(243, 51, 51);
+    opacity: 0.6;
+    color: white;
+    border: none;
+    padding: 0.4em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 8px;
+    display: inline-block;
+    font-size: 0.9em;
+}
+
+.reset:hover,
+.play:hover {
+    opacity: 1;
+    color: white;
+    background-color: rgb(243, 51, 51);
+}
+
+.scoreboard {
+    width: 14%;
+    border: 2px solid;
+    border-radius: 8px;
+    text-align: center;
+    color: black;
+}
+
+.scoreboard h4 {
+    margin: 0;
+    background-color: rgba(185, 185, 185, 0.425);
+    border-bottom: 2px solid;
+    padding: 0.6em 0.2em;
+}
+
+/**
+* Style a dice using UTF-8 characters.
+*/
+.dice-utf8 .dice-1::after { content: "\2680"; }
+.dice-utf8 .dice-2::after { content: "\2681"; }
+.dice-utf8 .dice-3::after { content: "\2682"; }
+.dice-utf8 .dice-4::after { content: "\2683"; }
+.dice-utf8 .dice-5::after { content: "\2684"; }
+.dice-utf8 .dice-6::after { content: "\2685"; }
+.dice-utf8 {
+    font-size: 5em;
+    margin: 0;
+    line-height: 0.7em;
+    padding-bottom: 0.2em;
+}
+
+i {
+    font-style: normal;
+}
+footer {
+   background-image: linear-gradient(to right, #252525, #0e0504);
+   color: #f2f2f2;
+   margin-top: 1em;
+   padding: 3em 1em;
+}

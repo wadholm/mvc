@@ -11,22 +11,22 @@ use function Mos\Functions\url;
 ?><!doctype html>
 <html>
     <meta charset="utf-8">
-    <title><?= $title ?? "No title" ?></title>
+    <title><?= $title ?? "Game21" ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="<?= url("/favicon.ico") ?>">
-    <link rel="stylesheet" type="text/css" href="<?= url("/css/style.css") ?>">
+    <link rel="stylesheet" type="text/css" href="<?= url("/../css/style.css") ?>">
 </head>
 
 <body>
 
 <header>
     <nav>
-        <a href="<?= url("/") ?>">Home</a> |
+        <a class="active" href="<?= url("/") ?>">Home</a> |
         <a href="<?= url("/session") ?>">Session</a> |
         <a href="<?= url("/debug") ?>">Debug</a> |
         <a href="<?= url("/twig") ?>">Twig view</a> |
-        <a href="<?= url("/some/where") ?>">some/where</a> |
-        <a href="<?= url("/dice") ?>">Dice</a> |
+        <a href="<?= url("/dice") ?>">Dice test</a> |
+        <a href="<?= url("/home21") ?>">Game21</a> |
         <a href="<?= url("/no/such/path") ?>">Show 404 example</a>
     </nav>
 </header>
