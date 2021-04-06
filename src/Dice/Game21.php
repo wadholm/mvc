@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Mack\Dice;
 
-use Mack\Dice\Dice;
 use Mack\Dice\DiceHand;
-use Mack\Dice\GraphicalDice;
+// use Mack\Dice\Dice;
+// use Mack\Dice\GraphicalDice;
 
 use function Mos\Functions\{
     redirectTo,
@@ -109,6 +109,5 @@ class Game21
         }
         $body = renderView("layout/game21.php", $data);
         sendResponse($body);
-
     }
 }
