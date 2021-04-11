@@ -209,3 +209,17 @@ function destroySession(): void
 
     session_destroy();
 }
+
+/**
+ * Start new game.
+ *
+ * @return void
+ */
+function newGame(): void
+{
+    $newGame = $_POST["start"] ?? null;
+    if ($newGame == "start") {
+        $_SESSION["playerSum"] = 0;
+        $_SESSION["dataSum"] = 0;
+    }
+}

@@ -10,7 +10,7 @@ declare(strict_types=1);
 // use Mack\Dice\DiceHand;
 use function Mos\Functions\url;
 
-$url = url("/home21/destroy");
+$url = url("/game21/home/destroy");
 $header = $header ?? null;
 $message = $message ?? null;
 $playerWins = $_SESSION["playerWins"] ?? 0;
@@ -30,7 +30,7 @@ $dataWins = $_SESSION["dataWins"] ?? 0;
 
 
 
-<form method="POST" action="<?= url("/game21") ?>">
+<form method="POST" action="<?= url("/game21/play") ?>">
 <label for="dices">Choose number of dices:</label>
 <input type="hidden" id="start" name="start" value="start">
 <button name="dices" type="submit" value="1">1</button>

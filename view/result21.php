@@ -10,7 +10,7 @@ declare(strict_types=1);
 // use Mack\Dice\DiceHand;
 use function Mos\Functions\url;
 
-$url = url("/home21");
+$url = url("/game21/home");
 
 $header = $header ?? null;
 $result = $_SESSION["result"] ?? null;
