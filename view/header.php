@@ -26,6 +26,7 @@ use function Mos\Functions\url;
         <a href="<?= url("/debug") ?>">Debug</a> |
         <a href="<?= url("/dice") ?>">Dice</a> |
         <a href="<?= url("/game21/home") ?>">Game21</a> |
+        <a href="<?= url("/yatzy/home") ?>">Yatzy</a> |
         <a href="<?= url("/no/such/path") ?>">Show 404 example</a>
     </nav>
 </header>

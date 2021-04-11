@@ -37,3 +37,10 @@ $router->addGroup("/game21", function (RouteCollector $router) {
     $router->addRoute("POST", "/play", ["\Mos\Controller\Game21", "play"]);
     $router->addRoute("GET", "/result", ["\Mos\Controller\Game21", "result"]);
 });
+
+$router->addGroup("/yatzy", function (RouteCollector $router) {
+    $router->addRoute("GET", "/home", ["\Mos\Controller\GameYatzy", "home"]);
+    $router->addRoute("GET", "/home/destroy", ["\Mos\Controller\GameYatzy", "destroy"]);
+    $router->addRoute("POST", "/play", ["\Mos\Controller\GameYatzy", "play"]);
+    $router->addRoute("GET", "/result", ["\Mos\Controller\GameYatzy", "result"]);
+});
