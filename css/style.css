@@ -112,8 +112,12 @@ button:hover {
     width: 14%;
     border: 2px solid;
     border-radius: 8px;
-    text-align: center;
     color: black;
+}
+
+.scoreboard p{
+    text-align: left;
+    margin-left: 1.8em;
 }
 
 .scoreboard h4 {
@@ -121,6 +125,7 @@ button:hover {
     background-color: rgba(185, 185, 185, 0.425);
     border-bottom: 2px solid;
     padding: 0.6em 0.2em;
+    text-align: center;
 }
 
 .dice {
@@ -147,11 +152,32 @@ i {
     font-style: normal;
 }
 
+.yatzy-div {
+    width: 30%;
+}
+
 .checkbox {
     display: inline-block;
-    font-size: 7em;
+    font-size: 5em;
     /* margin: 0; */
     line-height: 0.5em;
+}
+
+.checkbox-graphics {
+    display: inline-block;
+    font-size: 5em;
+    /* margin: 0; */
+    line-height: 0.5em;
+}
+
+input[type="checkbox"] { /* change "blue" browser chrome to yellow */
+    filter: hue-rotate(139deg) brightness(1.7);
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  transform: scale(1.5);
 }
 
 footer {

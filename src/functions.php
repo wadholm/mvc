@@ -278,11 +278,11 @@ function printHistogram($score): string
     // Print the histogram from the
     // $this->histogramValues[]
     return <<<EOT
-    1: $stars1
-    2: $stars2
-    3: $stars3
-    4: $stars4
-    5: $stars5
-    6: $stars6
+    1: $stars1 <br>
+    2: $stars2 <br>
+    3: $stars3 <br>
+    4: $stars4 <br>
+    5: $stars5 <br>
+    6: $stars6 <br>
     EOT;
 }

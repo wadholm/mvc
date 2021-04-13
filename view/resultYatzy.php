@@ -30,15 +30,11 @@ $bonus = $data["bonus"] ?? null;
 
 ?><h1><?= $header ?></h1>
 
-
-<p><?= var_dump($_SESSION) ?></p>
-<p><?= var_dump($data) ?></p>
-
-
 <p><button class="play"><a class="play" href="<?= $url ?>">Play again?</a></button></p>
 
 <div class="scoreboard">
 <h4>Score board.</h4>
+<p><?= $result ?></p>
 <p>Sum: <?= $totalScore ?></p>
 <?php if ($bonus == true) : ?>
     <p>Bonus: <?= $bonus ?></p>

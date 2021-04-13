@@ -27,20 +27,23 @@ $graphics2rolls = $graphics2rolls ?? null;
 // $die->roll();
 // $diceHand->roll();
 
-?><h1><?= $header ?></h1>
+?>
+
+<div class="yatzy-div">
+<h1><?= $header ?></h1>
 
 <p><?= $message ?></p>
 
 <p>Throw <?= $round ?></p>
 <p>Roll for <?= $diceRound ?></p>
 
-
-<form method="POST" action="<?= url("/yatzy/play") ?>">
+</div>
+<form class="dice-form" method="POST" action="<?= url("/yatzy/play") ?>">
 <?php if ($graphics2rolls != null) : ?>
     <?php $i = 0 ?>
     <?php foreach ($graphics2rolls as $roll) : ?>
-        <input type="checkbox" id="dice-<?= $i += 1 ?>" name="dice-<?= $i ?>" value="<?= $roll["value"] ?>">
-        <label class="checkbox" for="dice-<?= $i ?>"><?= $roll["graphic"] ?></label><br>
+        <input class="checkbox" type="checkbox" id="dice-<?= $i += 1 ?>" name="dice-<?= $i ?>" value="<?= $roll["value"] ?>">
+        <label class="checkbox-graphics" for="dice-<?= $i ?>"><?= $roll["graphic"] ?></label><br>
     <?php endforeach; ?>
 
 <?php endif; ?>
