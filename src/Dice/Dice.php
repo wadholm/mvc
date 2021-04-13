@@ -17,27 +17,35 @@ namespace Mack\Dice;
 /**
  * Class Dice.
  */
-class Dice
+class Dice implements DiceInterface
 {
 
-    protected $faces;
+    // use HistogramTrait;
+
+    private $faces;
+    private $roll = null;
+    // private ?int $lastRoll = null;
 
     public function __construct(int $faces = 6)
     {
         $this->faces = $faces;
     }
-    // const FACES = 6;
-
-    private $roll = null;
 
     public function roll(): int
     {
         $this->roll = rand(1, $this->faces);
+        // $this->addToHistogram($this->roll);
+
         return $this->roll;
     }
 
     public function getLastRoll(): int
     {
         return $this->roll;
+    }
+
+    public function asString(): string
+    {
+        return (string) $this->roll;
     }
 }

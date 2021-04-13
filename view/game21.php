@@ -33,14 +33,14 @@ $graphicalDice = $graphicalDice ?? null;
 
 <?php if ($graphicalDice != null) : ?>
     <?php foreach ($graphicalDice as $value) : ?>
-        <i class="<?= $value ?>"></i>
+        <i class="dice"><?= $value ?></i>
     <?php endforeach; ?>
 <?php endif; ?>
 </p>
 
 
 
-<form method="POST" action="<?= url("/yatzy/play") ?>">
+<form method="POST" action="<?= url("/game21/play") ?>">
 <input type="hidden" id="dices" name="dices" value="<?= $numberOfDices ?>">
 <button name="roll" type="submit" value="roll">Roll dices</button>
 <button name="roll" type="submit" value="stop">Stop</button>

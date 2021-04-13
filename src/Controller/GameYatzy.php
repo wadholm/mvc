@@ -13,7 +13,9 @@ use function Mos\Functions\{
     destroySession,
     renderView,
     url,
-    newGame
+    newGame,
+    addDices,
+    printHistogram
 };
 
 /**
@@ -64,76 +66,113 @@ class GameYatzy
             "header" => "Yatzy",
             "title" => "Yatzy",
         ];
-        // $newGame = $_POST["start"] ?? null;
-        // if ($newGame == "start") {
-        //     $_SESSION["playerSum"] = 0;
-        //     $_SESSION["dataSum"] = 0;
-        // }
+
         newGame();
         $numberOfDices = 5;
+        $checkedBoxes = 0;
 
-        $_SESSION["playerSum"] = $_SESSION["playerSum"] ?? 0;
-        $_SESSION["playerWins"] = $_SESSION["playerWins"] ?? 0;
+        if (isset($_POST["dice-1"]) && $_POST["dice-1"] == $_POST["diceround"]) {
+            $checkedBoxes++;
+        }
+        if (isset($_POST["dice-2"]) && $_POST["dice-2"] == $_POST["diceround"]) {
+            $checkedBoxes++;
+        }
+        if (isset($_POST["dice-3"]) && $_POST["dice-3"] == $_POST["diceround"]) {
+            $checkedBoxes++;
+        }
+        if (isset($_POST["dice-4"]) && $_POST["dice-4"] == $_POST["diceround"]) {
+            $checkedBoxes++;
+        }
+        if (isset($_POST["dice-5"]) && $_POST["dice-5"] == $_POST["diceround"]) {
+            $checkedBoxes++;
+        }
 
         $data["message"] = "Play Yatzy. ";
-        $data["numberOfDices"] = $numberOfDices;
-        $data["playerSum"] = "Sum: " . $_SESSION["playerSum"];
+        $_SESSION["result"] = $_SESSION["result"] ?? null;
+        $data["numberOfDices"] = $_POST["dices"] ?? 0;
+        $data["round"] = $_POST["round"] ?? 0;
+        $data["diceRound"] = $_POST["diceround"] ?? 1;
+        $diceRound = $_POST["diceround"] ?? 0;
 
+        // create round to store score 1-6
+        $rounds = ["round-1", "round-2", "round-3", "round-4", "round-5", "round-6"];
+        $_SESSION["score"] = $_SESSION["score"] ?? null;
+        foreach ($rounds as $round) {
+            $_SESSION[$round] = $_SESSION[$round] ?? 0;
+        }
+        // $_SESSION["round-1"] = $_SESSION["round-1"] ?? 0;
+        // $_SESSION["round-2"] = $_SESSION["round-2"] ?? 0;
+        // $_SESSION["round-3"] = $_SESSION["round-3"] ?? 0;
+        // $_SESSION["round-4"] = $_SESSION["round-4"] ?? 0;
+        // $_SESSION["round-5"] = $_SESSION["round-5"] ?? 0;
+        // $_SESSION["round-6"] = $_SESSION["round-6"] ?? 0;
 
         $roll = $_POST["roll"] ?? null;
+
         if ($roll != null && $roll == "roll") {
-            $diceHand = new DiceHand($numberOfDices);
-            $diceHand->roll();
-
-            $data["diceHandRoll"] = $diceHand->getLastRoll();
-            $data["graphicalDice"] = $diceHand->getGraphics();
-
-            $_SESSION["diceSumPlayer"] = $diceHand->sum();
-            $_SESSION["playerSum"] += $diceHand->sum();
-            $data["playerSum"] = "Player sum: " . $_SESSION["playerSum"];
-
-        //     if ($_SESSION["playerSum"] == 21) {
-        //         $_SESSION["result"] = "Congratulations, you won!";
-        //         $_SESSION["playerWins"] += 1;
-        //         // redirectTo(url("/result21"));
-        //         return (new Response())
-        //         ->withStatus(301)
-        //         ->withHeader("Location", url("/game21/result"));
-        //     } elseif ($_SESSION["playerSum"] > 21) {
-        //         // echo "You lost";
-
-        //         $_SESSION["result"] = "You lost, computer wins.";
-        //         $_SESSION["dataWins"] += 1;
-        //         // redirectTo(url("/result21"));
-        //         return (new Response())
-        //         ->withStatus(301)
-        //         ->withHeader("Location", url("/game21/result"));
-        //     }
-        // } elseif ($roll != null && $roll == "stop") {
-        //     $diceHand = new DiceHand($numberOfDices);
-
-        //     $_SESSION["dataSum"] = 0;
-
-        //     while ($_SESSION["dataSum"] < $_SESSION["playerSum"]) {
-        //         $diceHand->roll();
-        //         $_SESSION["dataSum"] += $diceHand->sum();
-        //         $data["dataSum"] = "Data sum: " . $_SESSION["dataSum"];
-        //     }
-        //     if ($_SESSION["dataSum"] <= 21 && $_SESSION["dataSum"] >= $_SESSION["playerSum"]) {
-        //         $_SESSION["result"] = "You lost, computer wins. ";
-        //         $_SESSION["dataWins"] += 1;
-
-        //         return (new Response())
-        //         ->withStatus(301)
-        //         ->withHeader("Location", url("/game21/result"));
-        //     }
-        //     $_SESSION["result"] = "Congratulations! You won, computer lost. ";
-        //     $_SESSION["playerWins"] += 1;
-
-        //     return (new Response())
-        //     ->withStatus(301)
-        //     ->withHeader("Location", url("/game21/result"));
+            switch ($data["round"]) {
+                case 1:
+                    $diceHand = new DiceHand();
+                    $diceHand = addDices($diceHand, $numberOfDices);
+                    $data["numberOfDices"] = $numberOfDices;
+                    $diceHand->roll();
+                    $data["message"] = "Select dices to save, then roll again. ";
+                    $data["graphics2rolls"] = $diceHand->getGraphics2Rolls();
+                    $data["histogram"] = $diceHand->printHistogram();
+                    break;
+                case 2:
+                    $diceHand = new DiceHand();
+                    $numberOfDices = $data["numberOfDices"] - $checkedBoxes;
+                    $diceHand = addDices($diceHand, $numberOfDices);
+                    $data["numberOfDices"] = $numberOfDices;
+                    if ($numberOfDices != 0) {
+                        $diceHand->roll();
+                    }
+                    // add dices
+                    $_SESSION["round-$diceRound"] = $_SESSION["round-$diceRound"] + $checkedBoxes;
+                    for ($i = 0; $i < $checkedBoxes; $i++) {
+                        $_SESSION["score"][] = $diceRound;
+                    }
+                    $data["message"] = "Select dices to save, then roll again. ";
+                    $data["graphics2rolls"] = $diceHand->getGraphics2Rolls();
+                    $data["histogram"] = $diceHand->printHistogram();
+                    break;
+                case 3:
+                    $diceHand = new DiceHand();
+                    $numberOfDices = $data["numberOfDices"] - $checkedBoxes;
+                    $diceHand = addDices($diceHand, $numberOfDices);
+                    $data["numberOfDices"] = $numberOfDices;
+                    if ($numberOfDices != 0) {
+                        $diceHand->roll();
+                    }
+                    // add dices
+                    $_SESSION["round-$diceRound"] = $_SESSION["round-$diceRound"] + $checkedBoxes;
+                    for ($i = 0; $i < $checkedBoxes; $i++) {
+                        $_SESSION["score"][] = $diceRound;
+                    }
+                    $data["message"] = "Select dices to save. ";
+                    $data["graphics2rolls"] = $diceHand->getGraphics2Rolls();
+                    $data["histogram"] = $diceHand->printHistogram();
+                    break;
+                case 4:
+                    // add dices
+                    $_SESSION["round-$diceRound"] = $_SESSION["round-$diceRound"] + $checkedBoxes;
+                    for ($i = 0; $i < $checkedBoxes; $i++) {
+                        $_SESSION["score"][] = $diceRound;
+                    }
+                    $data["message"] = "You rolled " . $_SESSION["round-$diceRound"] . " dices with the value of " . $diceRound . ".";
+                    $data["diceRound"] = $diceRound + 1;
+                    $data["round"] = 0;
+                    if ($data["diceRound"] > 6) {
+                        $_SESSION["result"] = printHistogram($_SESSION["score"]);
+                        return (new Response())
+                        ->withStatus(301)
+                        ->withHeader("Location", url("/yatzy/result"));
+                    }
+                    break;
+            }
         }
+
         $body = renderView("layout/yatzy.php", $data);
 
         return $psr17Factory
@@ -149,6 +188,32 @@ class GameYatzy
             "header" => "Yatzy",
             "title" => "Yatzy",
         ];
+        $score = $_SESSION["score"] ?? null;
+        $data["bonus"] = $data["bonus"] ?? false;
+
+        $totalScore = 0;
+        $bonus = 50;
+        if ($score != null) {
+            foreach ($score as $value) {
+                $totalScore += $value;
+            }
+        }
+
+        $rounds = ["round-1", "round-2", "round-3", "round-4", "round-5", "round-6"];
+        $_SESSION["score"] = $_SESSION["score"] ?? null;
+        $bonusflag = 0;
+        foreach ($rounds as $round) {
+            if ($_SESSION[$round] >= 3) {
+                $bonusflag += 1;
+            }
+        }
+
+        if ($totalScore >= 63 && $bonusflag == 6) {
+            $data["bonus"] = true;
+            // $totalScore += $bonus;
+        }
+        $data["totalScore"] = $totalScore ?? 0;
+        $data["bonusScore"] = $bonus ?? 0;
 
         $body = renderView("layout/resultYatzy.php", $data);
 

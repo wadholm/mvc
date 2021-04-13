@@ -16,18 +16,33 @@ namespace Mack\Dice;
 /**
  * Class DiceHand.
  */
-class DiceHand
+class DiceHand implements HistogramInterface
 {
+    use HistogramTrait;
+
     private $dices;
     private $graphicalDices;
+    private $rolls;
+    private $graphics2rolls;
     private $sum;
-    protected $number;
+    private $numberDices = null;
 
-    public function __construct(int $number = 2)
+    // public function __construct(int $numberDices = 2)
+    // {
+    //     for ($i = 0; $i < $numberDices; $i++) {
+    //         $this->dices[$i] = new GraphicalDice();
+    //     }
+    // }
+
+    public function addDice(DiceInterface $dice)
     {
-        for ($i = 0; $i < $number; $i++) {
-            $this->dices[$i] = new GraphicalDice();
-        }
+        $this->numberDices++;
+        $this->dices[] = $dice;
+    }
+
+    public function removeDice()
+    {
+        array_pop($this->dices);
     }
 
     public function roll(): void
@@ -37,6 +52,9 @@ class DiceHand
         $this->sum = 0;
         for ($i = 0; $i < $len; $i++) {
             $this->sum += $this->dices[$i]->roll();
+            $this->addToHistogram(
+                $this->dices[$i]->getLastRoll()
+            );
         }
     }
 
@@ -65,5 +83,42 @@ class DiceHand
             // var_dump($data["graphicalDice"]);
         }
         return $this->graphicalDices;
+    }
+
+    public function getGraphics2Rolls(): array
+    {
+        $len = count($this->dices);
+
+        for ($i = 0; $i < $len; $i++) {
+            $this->graphics2rolls[$i + 1] = array("graphic" => $this->dices[$i]->graphic(), "value" => $this->dices[$i]->getLastRoll());
+            // var_dump($data["graphicalDice"]);
+        }
+        return $this->graphics2rolls;
+    }
+
+    public function getRolls(): array
+    {
+        $len = count($this->dices);
+
+        for ($i = 0; $i < $len; $i++) {
+            $this->rolls[] = $this->dices[$i]->getLastRoll();
+        }
+        return $this->rolls;
+    }
+
+    public function getHand(): string
+    {
+        $len = count($this->dices);
+        $average = $this->sum / $len;
+        $res = "";
+        for ($i = 0; $i < $len; $i++) {
+            $res .= $this->dices[$i]->getLastRoll() . " ";
+        }
+        return <<<EOT
+        Your hand rolled $len dices:
+        $res
+        Sum = $this->sum
+        Average = $average
+        EOT;
     }
 }

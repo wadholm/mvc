@@ -123,6 +123,10 @@ button:hover {
     padding: 0.6em 0.2em;
 }
 
+.dice {
+    font-size: 1.5em;
+}
+
 /**
 * Style a dice using UTF-8 characters.
 */
@@ -142,6 +146,14 @@ button:hover {
 i {
     font-style: normal;
 }
+
+.checkbox {
+    display: inline-block;
+    font-size: 7em;
+    /* margin: 0; */
+    line-height: 0.5em;
+}
+
 footer {
    background-image: linear-gradient(to right, #252525, #0e0504);
    color: #f2f2f2;

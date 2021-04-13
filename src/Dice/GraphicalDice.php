@@ -9,11 +9,16 @@ namespace Mack\Dice;
  */
 class GraphicalDice extends Dice
 {
-    /**
-     * @var integer SIDES Number of sides of the Dice.
-     */
-    const FACES = 6;
-
+    private const FACES = 6;
+    private $dicegraphics;
+    private $graphic = [
+        1 => "⚀",
+        2 => "⚁",
+        3 => "⚂",
+        4 => "⚃",
+        5 => "⚄",
+        6 => "⚅",
+    ];
     /**
      * Constructor to initiate the dice with six number of sides.
      */
@@ -29,6 +34,22 @@ class GraphicalDice extends Dice
      */
     public function graphic()
     {
+        return $this->graphic[$this->getLastRoll()];
+    }
+
+    public function graphicName()
+    {
+
         return "dice-" . $this->getLastRoll();
+    }
+
+    public function diceGraphics()
+    {
+        return $this->dicegraphics[$this->getLastRoll()] = $this->graphic[$this->getLastRoll()];
+    }
+
+    public function asString(): string
+    {
+        return $this->graphic[$this->getLastRoll()];
     }
 }

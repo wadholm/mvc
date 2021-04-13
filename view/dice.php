@@ -22,10 +22,6 @@ $message = $message ?? null;
 
 <p><?= $message ?></p>
 
-<p> DICE!!! </p> 
-
-<p><?= $dieLastRoll ?></p>
-
 <p> DiceHand! </p> 
 
 <p><?= $diceHandRoll ?></p>
@@ -35,6 +31,7 @@ $message = $message ?? null;
 
 <p class="dice-utf8">
 <?php foreach ($graphicalDice as $value) : ?>
+    <i class="dice"><?= $value ?></i>
     <i class="<?= $value ?>"></i>
 <?php endforeach; ?>
 </p>

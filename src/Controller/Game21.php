@@ -8,12 +8,14 @@ use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Mack\Dice\DiceHand;
+use Mack\Dice\GraphicalDice;
 
 use function Mos\Functions\{
     destroySession,
     renderView,
     url,
-    newGame
+    newGame,
+    addDices
 };
 
 /**
@@ -84,7 +86,8 @@ class Game21
 
         $roll = $_POST["roll"] ?? null;
         if ($roll != null && $roll == "roll") {
-            $diceHand = new DiceHand($numberOfDices);
+            $diceHand = new DiceHand();
+            $diceHand = addDices($diceHand, $numberOfDices);
             $diceHand->roll();
 
             $data["diceHandRoll"] = $diceHand->getLastRoll();
@@ -94,14 +97,14 @@ class Game21
             $_SESSION["playerSum"] += $diceHand->sum();
             $data["playerSum"] = "Player sum: " . $_SESSION["playerSum"];
 
-            if ($_SESSION["playerSum"] == 21) {
+            if ((int)$_SESSION["playerSum"] == 21) {
                 $_SESSION["result"] = "Congratulations, you won!";
                 $_SESSION["playerWins"] += 1;
                 // redirectTo(url("/result21"));
                 return (new Response())
                 ->withStatus(301)
                 ->withHeader("Location", url("/game21/result"));
-            } elseif ($_SESSION["playerSum"] > 21) {
+            } elseif ((int)$_SESSION["playerSum"] > 21) {
                 // echo "You lost";
 
                 $_SESSION["result"] = "You lost, computer wins.";
@@ -112,7 +115,9 @@ class Game21
                 ->withHeader("Location", url("/game21/result"));
             }
         } elseif ($roll != null && $roll == "stop") {
-            $diceHand = new DiceHand($numberOfDices);
+            $diceHand = new DiceHand();
+            $diceHand = addDices($diceHand, $numberOfDices);
+            $diceHand->roll();
 
             $_SESSION["dataSum"] = 0;
 

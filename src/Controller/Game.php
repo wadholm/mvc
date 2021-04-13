@@ -7,6 +7,7 @@ namespace Mos\Controller;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Mack\Dice\Dice;
+use Mack\Dice\GraphicalDice;
 use Mack\Dice\DiceHand;
 
 use function Mos\Functions\renderView;
@@ -25,17 +26,15 @@ class Game
             "message" => "Hey, this is your dice-game!",
         ];
 
-
-        $die = new Dice();
         $diceHand = new DiceHand();
+        $diceHand->addDice(new GraphicalDice());
+        $diceHand->addDice(new GraphicalDice());
+
         // $graphicalDie = new GraphicalDice();
         // $rolls = 2;
 
-        $die->roll();
         $diceHand->roll();
 
-
-        $data["dieLastRoll"] = $die->getLastRoll();
         $data["diceHandRoll"] = $diceHand->getLastRoll();
 
         $_SESSION["diceSumData"] = $diceHand->sum();
