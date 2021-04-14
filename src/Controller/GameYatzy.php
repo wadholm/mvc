@@ -31,16 +31,6 @@ class GameYatzy
             "header" => "Yatzy",
             "title" => "Yatzy",
         ];
-        // $numberOfDices = (int)$_POST["dices"];
-        // $newGame = $_POST["start"] ?? null;
-
-        // $_SESSION["playerSum"] = $_SESSION["playerSum"] ?? 0;
-        $_SESSION["playerWins"] = $_SESSION["playerWins"] ?? 0;
-        $_SESSION["dataWins"] = $_SESSION["dataWins"] ?? 0;
-
-        // $data["message"] = "You're playing with " . $numberOfDices . " dices. ";
-        // $data["numberOfDices"] = $numberOfDices;
-        // $data["playerSum"] = "Sum: " . $_SESSION["playerSum"];
 
         $body = renderView("layout/homeYatzy.php", $data);
 
@@ -70,21 +60,12 @@ class GameYatzy
         newGame();
         $numberOfDices = 5;
         $checkedBoxes = 0;
+        $dices = ["dice-1", "dice-2", "dice-3", "dice-4", "dice-5"];
 
-        if (isset($_POST["dice-1"]) && $_POST["dice-1"] == $_POST["diceround"]) {
-            $checkedBoxes++;
-        }
-        if (isset($_POST["dice-2"]) && $_POST["dice-2"] == $_POST["diceround"]) {
-            $checkedBoxes++;
-        }
-        if (isset($_POST["dice-3"]) && $_POST["dice-3"] == $_POST["diceround"]) {
-            $checkedBoxes++;
-        }
-        if (isset($_POST["dice-4"]) && $_POST["dice-4"] == $_POST["diceround"]) {
-            $checkedBoxes++;
-        }
-        if (isset($_POST["dice-5"]) && $_POST["dice-5"] == $_POST["diceround"]) {
-            $checkedBoxes++;
+        foreach ($dices as $dice) {
+            if (isset($_POST[$dice]) && $_POST[$dice] == $_POST["diceround"]) {
+                $checkedBoxes++;
+            }
         }
 
         $data["message"] = "Play Yatzy. ";
@@ -100,15 +81,8 @@ class GameYatzy
         foreach ($rounds as $round) {
             $_SESSION[$round] = $_SESSION[$round] ?? 0;
         }
-        // $_SESSION["round-1"] = $_SESSION["round-1"] ?? 0;
-        // $_SESSION["round-2"] = $_SESSION["round-2"] ?? 0;
-        // $_SESSION["round-3"] = $_SESSION["round-3"] ?? 0;
-        // $_SESSION["round-4"] = $_SESSION["round-4"] ?? 0;
-        // $_SESSION["round-5"] = $_SESSION["round-5"] ?? 0;
-        // $_SESSION["round-6"] = $_SESSION["round-6"] ?? 0;
 
         $roll = $_POST["roll"] ?? null;
-
         if ($roll != null && $roll == "roll") {
             switch ($data["round"]) {
                 case 1:
@@ -118,7 +92,6 @@ class GameYatzy
                     $diceHand->roll();
                     $data["message"] = "Select dices to save, then roll again. ";
                     $data["graphics2rolls"] = $diceHand->getGraphics2Rolls();
-                    $data["histogram"] = $diceHand->printHistogram();
                     break;
                 case 2:
                     $diceHand = new DiceHand();
@@ -128,14 +101,11 @@ class GameYatzy
                     if ($numberOfDices != 0) {
                         $diceHand->roll();
                     }
-                    // add dices
                     $_SESSION["round-$diceRound"] = $_SESSION["round-$diceRound"] + $checkedBoxes;
                     for ($i = 0; $i < $checkedBoxes; $i++) {
                         $_SESSION["score"][] = $diceRound;
                     }
-                    $data["message"] = "Select dices to save, then roll again. ";
                     $data["graphics2rolls"] = $diceHand->getGraphics2Rolls();
-                    $data["histogram"] = $diceHand->printHistogram();
                     break;
                 case 3:
                     $diceHand = new DiceHand();
@@ -145,17 +115,14 @@ class GameYatzy
                     if ($numberOfDices != 0) {
                         $diceHand->roll();
                     }
-                    // add dices
                     $_SESSION["round-$diceRound"] = $_SESSION["round-$diceRound"] + $checkedBoxes;
                     for ($i = 0; $i < $checkedBoxes; $i++) {
                         $_SESSION["score"][] = $diceRound;
                     }
                     $data["message"] = "Select dices to save. ";
                     $data["graphics2rolls"] = $diceHand->getGraphics2Rolls();
-                    $data["histogram"] = $diceHand->printHistogram();
                     break;
                 case 4:
-                    // add dices
                     $_SESSION["round-$diceRound"] = $_SESSION["round-$diceRound"] + $checkedBoxes;
                     for ($i = 0; $i < $checkedBoxes; $i++) {
                         $_SESSION["score"][] = $diceRound;
