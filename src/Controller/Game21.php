@@ -14,7 +14,6 @@ use function Mos\Functions\{
     destroySession,
     renderView,
     url,
-    newGame,
     addDices
 };
 
@@ -66,12 +65,18 @@ class Game21
             "header" => "Game21",
             "title" => "Game21",
         ];
+
+        if (isset($_POST["start"])) {
+            $_SESSION["playerSum"] = 0;
+            $_SESSION["dataSum"] = 0;
+        }
+
         // $newGame = $_POST["start"] ?? null;
         // if ($newGame == "start") {
         //     $_SESSION["playerSum"] = 0;
         //     $_SESSION["dataSum"] = 0;
         // }
-        newGame();
+        // newGame();
         $numberOfDices = (int)$_POST["dices"];
 
         $_SESSION["playerSum"] = $_SESSION["playerSum"] ?? 0;

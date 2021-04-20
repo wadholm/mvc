@@ -9,7 +9,6 @@ use Twig\Environment;
 use Mack\Dice\GraphicalDice;
 use Mack\Dice\DiceHand;
 
-
 /**
  * Functions.
  */
@@ -216,19 +215,19 @@ function destroySession(): void
 }
 
 
-/**
- * Start new game.
- *
- * @return void
- */
-function newGame(): void
-{
-    $newGame = $_POST["start"] ?? null;
-    if ($newGame == "start") {
-        $_SESSION["playerSum"] = 0;
-        $_SESSION["dataSum"] = 0;
-    }
-}
+// /**
+//  * Start new game.
+//  *
+//  * @return void
+//  */
+// function newGame(): void
+// {
+//     $newGame = $_POST["start"] ?? null;
+//     if ($newGame == "start") {
+//         $_SESSION["playerSum"] = 0;
+//         $_SESSION["dataSum"] = 0;
+//     }
+// }
 
 /**
  * Roll dices.

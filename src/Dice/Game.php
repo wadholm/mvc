@@ -10,9 +10,7 @@ use Mack\Dice\DiceHand;
 // use Mack\Dice\GraphicalDice;
 
 use function Mos\Functions\{
-    redirectTo,
     renderView,
-    sendResponse,
     url
 };
 
@@ -66,6 +64,6 @@ class Game
         $_SESSION["playerSum"] += $diceHand->sum();
 
         $body = renderView("layout/dice.php", $data);
-        sendResponse($body);
+        // sendResponse($body);
     }
 }

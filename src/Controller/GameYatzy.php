@@ -13,7 +13,6 @@ use function Mos\Functions\{
     destroySession,
     renderView,
     url,
-    newGame,
     addDices,
     printHistogram
 };
@@ -57,7 +56,7 @@ class GameYatzy
             "title" => "Yatzy",
         ];
 
-        newGame();
+        // newGame();
         $numberOfDices = 5;
         $checkedBoxes = 0;
         $dices = ["dice-1", "dice-2", "dice-3", "dice-4", "dice-5"];
