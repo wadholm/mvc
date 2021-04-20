@@ -1,0 +1,4 @@
+/Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Controller/Debug.php:24	Avoid using static access to class '\Nyholm\Psr7\Stream' in method '__invoke'.
+/Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Controller/Game21.php:60	The method play() has a Cyclomatic Complexity of 11. The configured cyclomatic complexity threshold is 10.
+/Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Controller/GameYatzy.php:50	The method play() has a Cyclomatic Complexity of 17. The configured cyclomatic complexity threshold is 10.
+/Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Dice/Game.php:66	Avoid unused local variables such as '$body'.
