@@ -54,12 +54,27 @@ class GameYatzy
         $data = [
             "header" => "Yatzy",
             "title" => "Yatzy",
+            "message" => "Play Yatzy.",
+            "numberOfDices" => $_POST["dices"] ?? 0,
+            "round" => $_POST["round"] ?? 0,
+            "diceRound" => $_POST["diceround"] ?? 1
         ];
+
+        if (isset($_POST["start"])) {
+            $_SESSION["result"] = null;
+            $_SESSION["score"] = null;
+        }
 
         // newGame();
         $numberOfDices = 5;
         $checkedBoxes = 0;
         $dices = ["dice-1", "dice-2", "dice-3", "dice-4", "dice-5"];
+        // create round to store score 1-6
+        $rounds = ["round-1", "round-2", "round-3", "round-4", "round-5", "round-6"];
+        $diceRound = $_POST["diceround"] ?? 0;
+
+        $_SESSION["result"] = $_SESSION["result"] ?? null;
+        $_SESSION["score"] = $_SESSION["score"] ?? null;
 
         foreach ($dices as $dice) {
             if (isset($_POST[$dice]) && $_POST[$dice] == $_POST["diceround"]) {
@@ -67,16 +82,6 @@ class GameYatzy
             }
         }
 
-        $data["message"] = "Play Yatzy. ";
-        $_SESSION["result"] = $_SESSION["result"] ?? null;
-        $data["numberOfDices"] = $_POST["dices"] ?? 0;
-        $data["round"] = $_POST["round"] ?? 0;
-        $data["diceRound"] = $_POST["diceround"] ?? 1;
-        $diceRound = $_POST["diceround"] ?? 0;
-
-        // create round to store score 1-6
-        $rounds = ["round-1", "round-2", "round-3", "round-4", "round-5", "round-6"];
-        $_SESSION["score"] = $_SESSION["score"] ?? null;
         foreach ($rounds as $round) {
             $_SESSION[$round] = $_SESSION[$round] ?? 0;
         }

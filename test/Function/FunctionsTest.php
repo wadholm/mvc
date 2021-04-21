@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mos\Functions;
 
 use PHPUnit\Framework\TestCase;
+use Mack\Dice\DiceHand;
 
 /**
  * Test cases for the functions in src/functions.php.
@@ -91,5 +92,29 @@ class FunctionsTest extends TestCase
 
         destroySession();
         $this->assertEmpty($_SESSION);
+    }
+
+
+    /**
+     * Test the function adddices().
+     *
+     */
+    public function testAddDices()
+    {
+        $diceHand = new DiceHand();
+        $numberOfDices = 3;
+        $res = addDices($diceHand, $numberOfDices);
+        $this->assertIsObject($res);
+    }
+
+    /**
+     * Test the function printHistogram().
+     *
+     */
+    public function testPrintHistogram()
+    {
+        $score = [1, 2, 3, 4, 5, 6];
+        $res = printHistogram($score);
+        $this->assertIsString($res);
     }
 }

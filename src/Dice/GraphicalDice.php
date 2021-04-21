@@ -32,18 +32,18 @@ class GraphicalDice extends Dice
      *
      * @return string as graphical representation of last rolled dice.
      */
-    public function graphic()
+    public function graphic(): string
     {
         return $this->graphic[$this->getLastRoll()];
     }
 
-    public function graphicName()
+    public function graphicName(): string
     {
 
         return "dice-" . $this->getLastRoll();
     }
 
-    public function diceGraphics()
+    public function diceGraphics(): string
     {
         return $this->dicegraphics[$this->getLastRoll()] = $this->graphic[$this->getLastRoll()];
     }

@@ -1,74 +1,74 @@
 <?php
 
-declare(strict_types=1);
+// declare(strict_types=1);
 
-namespace Mos\Controller;
+// namespace Mos\Controller;
 
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Psr\Http\Message\ResponseInterface;
-use Mack\Dice\Dice;
-use Mack\Dice\GraphicalDice;
-use Mack\Dice\DiceHand;
+// use Nyholm\Psr7\Factory\Psr17Factory;
+// use Psr\Http\Message\ResponseInterface;
+// use Mack\Dice\Dice;
+// use Mack\Dice\GraphicalDice;
+// use Mack\Dice\DiceHand;
 
-use function Mos\Functions\renderView;
+// use function Mos\Functions\renderView;
 
-/**
- * Controller for the game route.
- */
-class Game
-{
-    public function __invoke(): ResponseInterface
-    {
-        $psr17Factory = new Psr17Factory();
+// /**
+//  * Controller for the game route.
+//  */
+// class Game
+// {
+//     public function __invoke(): ResponseInterface
+//     {
+//         $psr17Factory = new Psr17Factory();
 
-        $data = [
-            "header" => "Dice",
-            "message" => "Hey, this is your dice-game!",
-        ];
+//         $data = [
+//             "header" => "Dice",
+//             "message" => "Hey, this is your dice-game!",
+//         ];
 
-        $diceHand = new DiceHand();
-        $diceHand->addDice(new GraphicalDice());
-        $diceHand->addDice(new GraphicalDice());
+//         $diceHand = new DiceHand();
+//         $diceHand->addDice(new GraphicalDice());
+//         $diceHand->addDice(new GraphicalDice());
 
-        // $graphicalDie = new GraphicalDice();
-        // $rolls = 2;
+//         // $graphicalDie = new GraphicalDice();
+//         // $rolls = 2;
 
-        $diceHand->roll();
+//         $diceHand->roll();
 
-        $data["diceHandRoll"] = $diceHand->getLastRoll();
+//         $data["diceHandRoll"] = $diceHand->getLastRoll();
 
-        $_SESSION["diceSumData"] = $diceHand->sum();
-        // $_SESSION["dataSum"] = $_SESSION["dataSum"] + $diceHand->sum() ?? 0;
+//         $_SESSION["diceSumData"] = $diceHand->sum();
+//         // $_SESSION["dataSum"] = $_SESSION["dataSum"] + $diceHand->sum() ?? 0;
 
-        // $data["graphicalDice"] = [];
+//         // $data["graphicalDice"] = [];
 
-        // for ($i = 0; $i < $rolls; $i++) {
-        //     $graphicalDie->roll();
-        //     $data["graphicalDice"][$i] = $graphicalDie->graphic();
-        //     // var_dump($data["graphicalDice"]);
-        // }
+//         // for ($i = 0; $i < $rolls; $i++) {
+//         //     $graphicalDie->roll();
+//         //     $data["graphicalDice"][$i] = $graphicalDie->graphic();
+//         //     // var_dump($data["graphicalDice"]);
+//         // }
 
-        $diceHand->roll();
-        $data["diceHandRoll2"] = $diceHand->getLastRoll();
-        $data["graphicalDice"] = $diceHand->getGraphics();
-        // var_dump($diceHand->sum());
+//         $diceHand->roll();
+//         $data["diceHandRoll2"] = $diceHand->getLastRoll();
+//         $data["graphicalDice"] = $diceHand->getGraphics();
+//         // var_dump($diceHand->sum());
 
-        // $url = url("/session/destroy");
+//         // $url = url("/session/destroy");
 
-        // echo <<<EOD
-        // <p><a href="$url">destroy the session</a></p>
-        // EOD;
+//         // echo <<<EOD
+//         // <p><a href="$url">destroy the session</a></p>
+//         // EOD;
 
-        $_SESSION["counter"] = 1 + ($_SESSION["counter"] ?? 0);
-        $_SESSION["diceSumPlayer"] = $diceHand->sum();
-        // $_SESSION["playerSum"] = $_SESSION["playerSum"] + $diceHand->sum() ?? 0;
+//         $_SESSION["counter"] = 1 + ($_SESSION["counter"] ?? 0);
+//         $_SESSION["diceSumPlayer"] = $diceHand->sum();
+//         // $_SESSION["playerSum"] = $_SESSION["playerSum"] + $diceHand->sum() ?? 0;
 
 
 
-        $body = renderView("layout/dice.php", $data);
+//         $body = renderView("layout/dice.php", $data);
 
-        return $psr17Factory
-            ->createResponse(200)
-            ->withBody($psr17Factory->createStream($body));
-    }
-}
+//         return $psr17Factory
+//             ->createResponse(200)
+//             ->withBody($psr17Factory->createStream($body));
+//     }
+// }

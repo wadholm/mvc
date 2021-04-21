@@ -40,12 +40,12 @@ class DiceHand implements HistogramInterface
         $this->dices[] = $dice;
     }
 
-    public function removeDice()
-    {
-        array_pop($this->dices);
-    }
+    // public function removeDice()
+    // {
+    //     array_pop($this->dices);
+    // }
 
-    public function roll(): void
+    public function roll(): bool
     {
         $len = count($this->dices);
 
@@ -56,6 +56,7 @@ class DiceHand implements HistogramInterface
                 $this->dices[$i]->getLastRoll()
             );
         }
+        return true;
     }
 
     public function getLastRoll(): string

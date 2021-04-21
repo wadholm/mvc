@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 // Get the autoloader
-require __DIR__ . "/../../vendor/autoload.php";
+// require __DIR__ . "/../../vendor/autoload.php";
 
-use Mack\Dice\Dice;
-use Mack\Dice\GraphicalDice;
-use Mack\Dice\DiceHand;
+// use Mack\Dice\Dice;
+// use Mack\Dice\GraphicalDice;
+// use Mack\Dice\DiceHand;
 
 
 // $die = new GraphicalDice();
@@ -26,15 +26,15 @@ use Mack\Dice\DiceHand;
 // echo $die->graphic();
 // echo $die->diceGraphics();
 
-$hand = new DiceHand();
+// $hand = new DiceHand();
 
-$hand->addDice(new GraphicalDice());
-$hand->addDice(new GraphicalDice());
+// $hand->addDice(new GraphicalDice());
+// $hand->addDice(new GraphicalDice());
 
-for ($i = 0; $i < 3; $i++) {
-    $hand->roll();
-    echo $hand->printHistogram();
-}
+// for ($i = 0; $i < 3; $i++) {
+//     $hand->roll();
+//     echo $hand->printHistogram();
+// }
 
 // $hand->roll();
 // echo $hand->printHistogram();

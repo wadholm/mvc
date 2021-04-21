@@ -230,7 +230,7 @@ function destroySession(): void
 // }
 
 /**
- * Roll dices.
+ * Add dices.
  *
  * @return object
  */

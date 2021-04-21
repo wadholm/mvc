@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mack\Dice;
 
+use TypeError;
+
 // use function Mos\Functions\{
 //     destroySession,
 //     redirectTo,
@@ -19,11 +21,10 @@ namespace Mack\Dice;
  */
 class Dice implements DiceInterface
 {
-
-    // use HistogramTrait;
+    use HistogramTrait;
 
     private $faces;
-    private $roll = null;
+    protected $roll = null;
     // private ?int $lastRoll = null;
 
     public function __construct(int $faces = 6)
@@ -31,21 +32,35 @@ class Dice implements DiceInterface
         $this->faces = $faces;
     }
 
+    /**
+     * Get faces of the die.
+     *
+     * @return int as number of faces.
+     */
+    public function faces()
+    {
+        return $this->faces;
+    }
+
     public function roll(): int
     {
         $this->roll = rand(1, $this->faces);
-        // $this->addToHistogram($this->roll);
+        $this->addToHistogram($this->roll);
 
         return $this->roll;
     }
 
     public function getLastRoll(): int
     {
+        // if ($this->roll == null) {
+        //     throw new DiceException("No dices rolled.");
+        // }
         return $this->roll;
     }
 
     public function asString(): string
     {
+
         return (string) $this->roll;
     }
 }

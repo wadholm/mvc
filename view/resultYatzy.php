@@ -10,15 +10,17 @@ declare(strict_types=1);
 // use Mack\Dice\DiceHand;
 use function Mos\Functions\url;
 
-$url = url("/yatzy/home/destroy");
+$url = url("/yatzy/home");
 
 $header = $header ?? null;
 $message = $message ?? null;
 $result = $_SESSION["result"] ?? null;
 $score = $_SESSION["score"] ?? null;
 $totalScore = $data["totalScore"] ?? null;
+$bonusScore = $data["bonusScore"] ?? null;
 $bonus = $data["bonus"] ?? null;
 
+// var_dump($score);
 
 
 
@@ -37,8 +39,8 @@ $bonus = $data["bonus"] ?? null;
 <p><?= $result ?></p>
 <p>Sum: <?= $totalScore ?></p>
 <?php if ($bonus == true) : ?>
-    <p>Bonus: <?= $bonus ?></p>
-    <p><?php $totalScore += $bonus?></p>
+    <p>Bonus: <?= $bonusScore ?></p>
+    <p><?php $totalScore += $bonusScore?></p>
     <p>Total: <?= $totalScore ?></p>
 <?php endif; ?>
 </div>
