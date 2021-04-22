@@ -13,8 +13,7 @@ use function Mos\Functions\url;
 $url = url("/yatzy/play");
 $header = $header ?? null;
 $message = $message ?? null;
-$playerWins = $_SESSION["playerWins"] ?? 0;
-$dataWins = $_SESSION["dataWins"] ?? 0;
+$numberOfDices = 5;
 
 // $die = new Dice();
 // $diceHand = new DiceHand();
@@ -32,6 +31,7 @@ $dataWins = $_SESSION["dataWins"] ?? 0;
 
 <form method="POST" action="<?= $url ?>">
 <input type="hidden" id="start" name="start" value="start">
+<input type="hidden" id="dices" name="dices" value="<?= $numberOfDices ?>">
 <button name="start" type="submit">Start game</button>
 
 </form>

@@ -21,13 +21,11 @@ use function Mos\Functions\{
 
 
 /**
- * Class Game21.
+ * Class PlayGame21.
  */
 class PlayGame21
 {
     public $numberOfDices;
-    public $playerSum;
-    public $graphic;
     public $res;
 
     public function startGame()
@@ -43,16 +41,6 @@ class PlayGame21
     public function getNumberOfDices()
     {
         return $this->numberOfDices = (int)$_POST["dices"];
-    }
-
-    public function getPlayerSum()
-    {
-        return $this->playerSum;
-    }
-
-    public function getGraphicDice()
-    {
-        return $this->graphic;
     }
 
     public function playGame($roll)

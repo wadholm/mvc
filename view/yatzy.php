@@ -12,13 +12,13 @@ use function Mos\Functions\url;
 
 $header = $header ?? null;
 $message = $message ?? null;
-$histogram = $histogram ?? null;
+$yatzy = $_SESSION["yatzy"] ?? null;
 $diceHand = $diceHand ?? null;
 $numberOfDices = $numberOfDices ?? null;
 $graphicalDice = $graphicalDice ?? null;
-$rolls = $rolls ?? null;
-$round = $round ?? null;
-$diceRound = $diceRound ?? 1;
+// $rolleds = $rolleds ?? null;
+$roll = $roll ?? null;
+$round = $round ?? 1;
 $graphics2rolls = $graphics2rolls ?? null;
 
 // $die = new Dice();
@@ -32,27 +32,29 @@ $graphics2rolls = $graphics2rolls ?? null;
 <div class="yatzy-div">
 <h1><?= $header ?></h1>
 
+<p><?= $yatzy ?></p>
+
 <p><?= $message ?></p>
 
-<p>Throw <?= $round ?></p>
-<p>Roll for <?= $diceRound ?></p>
+<p>Throw <?= $roll ?></p>
+<p>Roll for <?= $round ?></p>
 
 </div>
 <form class="dice-form" method="POST" action="<?= url("/yatzy/play") ?>">
 <?php if ($graphics2rolls != null) : ?>
     <?php $i = 0 ?>
-    <?php foreach ($graphics2rolls as $roll) : ?>
-        <input class="checkbox" type="checkbox" id="dice-<?= $i += 1 ?>" name="dice-<?= $i ?>" value="<?= $roll["value"] ?>">
-        <label class="checkbox-graphics" for="dice-<?= $i ?>"><?= $roll["graphic"] ?></label><br>
+    <?php foreach ($graphics2rolls as $rolled) : ?>
+        <input class="checkbox" type="checkbox" id="dice-<?= $i += 1 ?>" name="dice-<?= $i ?>" value="<?= $rolled["value"] ?>">
+        <label class="checkbox-graphics" for="dice-<?= $i ?>"><?= $rolled["graphic"] ?></label><br>
     <?php endforeach; ?>
 
 <?php endif; ?>
 <input type="hidden" id="dices" name="dices" value="<?= $numberOfDices ?>">
-<input type="hidden" id="round" name="round" value="<?= $round + 1 ?>">
-<input type="hidden" id="diceround" name="diceround" value="<?= $diceRound ?>">
-<?php if ($round < 3) : ?>
-<button name="roll" type="submit" value="roll">Roll dices</button>
-<?php elseif ($round == 3) : ?>
-<button name="roll" type="submit" value="roll">Next</button>
+<input type="hidden" id="roll" name="roll" value="<?= $roll + 1 ?>">
+<input type="hidden" id="round" name="round" value="<?= $round ?>">
+<?php if ($roll < 3) : ?>
+<button name="rolldices" type="submit" value="rolldices">Roll dices</button>
+<?php elseif ($roll == 3) : ?>
+<button name="rolldices" type="submit" value="rolldices">Next</button>
 <?php endif; ?>
 </form> 

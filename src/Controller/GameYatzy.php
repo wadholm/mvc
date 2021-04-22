@@ -8,6 +8,7 @@ use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Mack\Dice\DiceHand;
+use Mack\Game\PlayYatzy;
 
 use function Mos\Functions\{
     destroySession,
@@ -51,97 +52,47 @@ class GameYatzy
     {
         $psr17Factory = new Psr17Factory();
 
+        $game = new PlayYatzy();
+        $game->startGame();
+
         $data = [
             "header" => "Yatzy",
             "title" => "Yatzy",
             "message" => "Play Yatzy.",
             "numberOfDices" => $_POST["dices"] ?? 0,
-            "round" => $_POST["round"] ?? 0,
-            "diceRound" => $_POST["diceround"] ?? 1
+            "rollDices" => $_POST["rolldices"] ?? null,
+            "roll" => $_POST["roll"] ?? 0,
+            "round" => $_POST["round"] ?? 1
         ];
-
-        if (isset($_POST["start"])) {
-            $_SESSION["result"] = null;
-            $_SESSION["score"] = null;
-        }
-
-        // newGame();
-        $numberOfDices = 5;
-        $checkedBoxes = 0;
-        $dices = ["dice-1", "dice-2", "dice-3", "dice-4", "dice-5"];
-        // create round to store score 1-6
-        $rounds = ["round-1", "round-2", "round-3", "round-4", "round-5", "round-6"];
-        $diceRound = $_POST["diceround"] ?? 0;
 
         $_SESSION["result"] = $_SESSION["result"] ?? null;
         $_SESSION["score"] = $_SESSION["score"] ?? null;
 
-        foreach ($dices as $dice) {
-            if (isset($_POST[$dice]) && $_POST[$dice] == $_POST["diceround"]) {
-                $checkedBoxes++;
-            }
+
+        $game->getSessionRounds();
+
+        $res = $game->playGame($data["rollDices"], $data["round"], $data["roll"]);
+
+        $data["message"] = $res["message"] ?? null;
+        $data["graphics2rolls"] = $res["graphics2rolls"] ?? null;
+
+        if (isset($res["numberOfDices"])) {
+            $data["numberOfDices"] = $res["numberOfDices"];
         }
 
-        foreach ($rounds as $round) {
-            $_SESSION[$round] = $_SESSION[$round] ?? 0;
+        if (isset($res["round"])) {
+            $data["round"] = $res["round"];
         }
 
-        $roll = $_POST["roll"] ?? null;
-        if ($roll != null && $roll == "roll") {
-            switch ($data["round"]) {
-                case 1:
-                    $diceHand = new DiceHand();
-                    $diceHand = addDices($diceHand, $numberOfDices);
-                    $data["numberOfDices"] = $numberOfDices;
-                    $diceHand->roll();
-                    $data["message"] = "Select dices to save, then roll again. ";
-                    $data["graphics2rolls"] = $diceHand->getGraphics2Rolls();
-                    break;
-                case 2:
-                    $diceHand = new DiceHand();
-                    $numberOfDices = $data["numberOfDices"] - $checkedBoxes;
-                    $diceHand = addDices($diceHand, $numberOfDices);
-                    $data["numberOfDices"] = $numberOfDices;
-                    if ($numberOfDices != 0) {
-                        $diceHand->roll();
-                    }
-                    $_SESSION["round-$diceRound"] = $_SESSION["round-$diceRound"] + $checkedBoxes;
-                    for ($i = 0; $i < $checkedBoxes; $i++) {
-                        $_SESSION["score"][] = $diceRound;
-                    }
-                    $data["graphics2rolls"] = $diceHand->getGraphics2Rolls();
-                    break;
-                case 3:
-                    $diceHand = new DiceHand();
-                    $numberOfDices = $data["numberOfDices"] - $checkedBoxes;
-                    $diceHand = addDices($diceHand, $numberOfDices);
-                    $data["numberOfDices"] = $numberOfDices;
-                    if ($numberOfDices != 0) {
-                        $diceHand->roll();
-                    }
-                    $_SESSION["round-$diceRound"] = $_SESSION["round-$diceRound"] + $checkedBoxes;
-                    for ($i = 0; $i < $checkedBoxes; $i++) {
-                        $_SESSION["score"][] = $diceRound;
-                    }
-                    $data["message"] = "Select dices to save. ";
-                    $data["graphics2rolls"] = $diceHand->getGraphics2Rolls();
-                    break;
-                case 4:
-                    $_SESSION["round-$diceRound"] = $_SESSION["round-$diceRound"] + $checkedBoxes;
-                    for ($i = 0; $i < $checkedBoxes; $i++) {
-                        $_SESSION["score"][] = $diceRound;
-                    }
-                    $data["message"] = "You rolled " . $_SESSION["round-$diceRound"] . " dices with the value of " . $diceRound . ".";
-                    $data["diceRound"] = $diceRound + 1;
-                    $data["round"] = 0;
-                    if ($data["diceRound"] > 6) {
-                        $_SESSION["result"] = printHistogram($_SESSION["score"]);
-                        return (new Response())
-                        ->withStatus(301)
-                        ->withHeader("Location", url("/yatzy/result"));
-                    }
-                    break;
-            }
+        if (isset($res["roll"])) {
+            $data["roll"] = $res["roll"];
+        }
+
+        if (isset($_SESSION["result"])) {
+            $_SESSION["result"] = printHistogram($_SESSION["score"]);
+            return (new Response())
+            ->withStatus(301)
+            ->withHeader("Location", url("/yatzy/result"));
         }
 
         $body = renderView("layout/yatzy.php", $data);
@@ -158,33 +109,16 @@ class GameYatzy
         $data = [
             "header" => "Yatzy",
             "title" => "Yatzy",
+            "bonus" => false,
+            "score" => $_SESSION["score"] ?? null,
+            "totalScore" => 0,
+            "bonusScore" => 50
         ];
-        $score = $_SESSION["score"] ?? null;
-        $data["bonus"] = $data["bonus"] ?? false;
 
-        $totalScore = 0;
-        $bonus = 50;
-        if ($score != null) {
-            foreach ($score as $value) {
-                $totalScore += $value;
-            }
-        }
+        $game = new PlayYatzy();
 
-        $rounds = ["round-1", "round-2", "round-3", "round-4", "round-5", "round-6"];
-        $_SESSION["score"] = $_SESSION["score"] ?? null;
-        $bonusflag = 0;
-        foreach ($rounds as $round) {
-            if ($_SESSION[$round] >= 3) {
-                $bonusflag += 1;
-            }
-        }
-
-        if ($totalScore >= 63 && $bonusflag == 6) {
-            $data["bonus"] = true;
-            // $totalScore += $bonus;
-        }
-        $data["totalScore"] = $totalScore ?? 0;
-        $data["bonusScore"] = $bonus ?? 0;
+        $data["totalScore"] = $game->calculateTotalScore($data["score"]);
+        $data["bonus"] = $game->checkForBonus();
 
         $body = renderView("layout/resultYatzy.php", $data);
 
