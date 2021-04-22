@@ -9,6 +9,7 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Mack\Dice\DiceHand;
 use Mack\Dice\GraphicalDice;
+use Mack\Game\PlayGame21;
 
 use function Mos\Functions\{
     destroySession,
@@ -30,16 +31,12 @@ class Game21
             "header" => "Game21",
             "title" => "Game21",
         ];
-        // $numberOfDices = (int)$_POST["dices"];
-        // $newGame = $_POST["start"] ?? null;
 
-        // $_SESSION["playerSum"] = $_SESSION["playerSum"] ?? 0;
         $_SESSION["playerWins"] = $_SESSION["playerWins"] ?? 0;
         $_SESSION["dataWins"] = $_SESSION["dataWins"] ?? 0;
-
-        // $data["message"] = "You're playing with " . $numberOfDices . " dices. ";
-        // $data["numberOfDices"] = $numberOfDices;
-        // $data["playerSum"] = "Sum: " . $_SESSION["playerSum"];
+        $_SESSION["playerWinner"] = false;
+        $_SESSION["dataWinner"] = false;
+        $_SESSION["result"] = null;
 
         $body = renderView("layout/home21.php", $data);
 
@@ -61,91 +58,32 @@ class Game21
     {
         $psr17Factory = new Psr17Factory();
 
+        $game = new PlayGame21();
+        $game->startGame();
+        $numberOfDices  = $game->getNumberOfDices();
+
         $data = [
             "header" => "Game21",
             "title" => "Game21",
+            "message" => "You're playing with " . $numberOfDices . " dices.",
+            "numberOfDices" => $numberOfDices,
+            "playerSum" => $_SESSION["playerSum"],
         ];
 
-        if (isset($_POST["start"])) {
-            $_SESSION["playerSum"] = 0;
-            $_SESSION["dataSum"] = 0;
-        }
-
-        // $newGame = $_POST["start"] ?? null;
-        // if ($newGame == "start") {
-        //     $_SESSION["playerSum"] = 0;
-        //     $_SESSION["dataSum"] = 0;
-        // }
-        // newGame();
-        $numberOfDices = (int)$_POST["dices"];
-
-        $_SESSION["playerSum"] = $_SESSION["playerSum"] ?? 0;
-        $_SESSION["playerWins"] = $_SESSION["playerWins"] ?? 0;
-        $_SESSION["dataWins"] = $_SESSION["dataWins"] ?? 0;
-
-        $data["message"] = "You're playing with " . $numberOfDices . " dices. ";
-        $data["numberOfDices"] = $numberOfDices;
-        $data["playerSum"] = "Sum: " . $_SESSION["playerSum"];
-
-
-
         $roll = $_POST["roll"] ?? null;
-        if ($roll != null && $roll == "roll") {
-            $diceHand = new DiceHand();
-            $diceHand = addDices($diceHand, $numberOfDices);
-            $diceHand->roll();
+        $res = $game->playGame($roll);
 
-            $data["diceHandRoll"] = $diceHand->getLastRoll();
-            $data["graphicalDice"] = $diceHand->getGraphics();
+        $data["graphicalDice"] = $res["graphicalDice"] ?? 0;
+        $data["playerSum"] = $_SESSION["playerSum"];
 
-            $_SESSION["diceSumPlayer"] = $diceHand->sum();
-            $_SESSION["playerSum"] += $diceHand->sum();
-            $data["playerSum"] = "Player sum: " . $_SESSION["playerSum"];
-
-            if ((int)$_SESSION["playerSum"] == 21) {
-                $_SESSION["result"] = "Congratulations, you won!";
-                $_SESSION["playerWins"] += 1;
-                // redirectTo(url("/result21"));
-                return (new Response())
-                ->withStatus(301)
-                ->withHeader("Location", url("/game21/result"));
-            } elseif ((int)$_SESSION["playerSum"] > 21) {
-                // echo "You lost";
-
-                $_SESSION["result"] = "You lost, computer wins.";
-                $_SESSION["dataWins"] += 1;
-                // redirectTo(url("/result21"));
-                return (new Response())
-                ->withStatus(301)
-                ->withHeader("Location", url("/game21/result"));
-            }
-        } elseif ($roll != null && $roll == "stop") {
-            $diceHand = new DiceHand();
-            $diceHand = addDices($diceHand, $numberOfDices);
-            $diceHand->roll();
-
-            $_SESSION["dataSum"] = 0;
-
-            while ($_SESSION["dataSum"] < $_SESSION["playerSum"]) {
-                $diceHand->roll();
-                $_SESSION["dataSum"] += $diceHand->sum();
-                $data["dataSum"] = "Data sum: " . $_SESSION["dataSum"];
-            }
-            if ($_SESSION["dataSum"] <= 21 && $_SESSION["dataSum"] >= $_SESSION["playerSum"]) {
-                $_SESSION["result"] = "You lost, computer wins. ";
-                $_SESSION["dataWins"] += 1;
-
-                return (new Response())
-                ->withStatus(301)
-                ->withHeader("Location", url("/game21/result"));
-            }
-            $_SESSION["result"] = "Congratulations! You won, computer lost. ";
-            $_SESSION["playerWins"] += 1;
+        if ($_SESSION["playerWinner"] == true || $_SESSION["dataWinner"] == true) {
+            $_SESSION["result"] = $res["result"];
 
             return (new Response())
             ->withStatus(301)
             ->withHeader("Location", url("/game21/result"));
         }
+
         $body = renderView("layout/game21.php", $data);
 
         return $psr17Factory

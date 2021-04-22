@@ -27,7 +27,7 @@ $graphicalDice = $graphicalDice ?? null;
 
 <p><?= $message ?></p>
 
-<p><?= $playerSum ?></p>
+<p>Sum: <?= $playerSum ?></p>
 
 <p class="dice-utf8">
 
