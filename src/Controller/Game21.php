@@ -77,7 +77,7 @@ class Game21
         $data["playerSum"] = $_SESSION["playerSum"];
 
         if ($_SESSION["playerWinner"] == true || $_SESSION["dataWinner"] == true) {
-            $_SESSION["result"] = $res["result"];
+            $_SESSION["result"] = isset($res["result"]);
 
             return (new Response())
             ->withStatus(301)

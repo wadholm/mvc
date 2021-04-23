@@ -52,9 +52,7 @@ class PlayYatzy
             $_SESSION["result"] = null;
             $_SESSION["score"] = null;
             $this->resetSessionRounds();
-            return true;
         }
-        return false;
     }
 
     public function getFirstNumberOfDices()
@@ -76,6 +74,7 @@ class PlayYatzy
                 $this->checkedBoxes++;
             }
         }
+        return $this->checkedBoxes;
     }
 
     public function getSessionRounds()
@@ -117,12 +116,15 @@ class PlayYatzy
             $this->getCheckedBoxes();
             $this->numberOfDices = $this->getNumberOfDices() - $this->checkedBoxes;
             $this->res = $this->rollDices($round, $roll);
-            return $this->res;
         }
+        return $this->res;
     }
 
     public function rollDices($round, $roll)
     {
+        $this->res["round"] = $round;
+        $this->res["roll"] = $roll;
+
         $diceHand = new DiceHand();
         if ($roll == 1) {
             $this->numberOfDices = $this->getFirstNumberOfDices();
@@ -165,8 +167,8 @@ class PlayYatzy
             foreach ($score as $value) {
                 $this->res["totalScore"] += $value;
             }
-            return $this->res["totalScore"];
         }
+        return $this->res["totalScore"];
     }
 
     public function checkForBonus()
@@ -177,7 +179,7 @@ class PlayYatzy
                 $bonusflag += 1;
             }
         }
-        if ($this->res["totalScore"] >= 63 && $bonusflag == 6) {
+        if (isset($this->res["totalScore"]) && $this->res["totalScore"]  >= 63 && $bonusflag == 6) {
             $this->bonus = true;
         }
         return $this->bonus;

@@ -25,7 +25,7 @@ use function Mos\Functions\{
  */
 class PlayGame21
 {
-    public $numberOfDices;
+    public $numberOfDices = 2;
     public $res;
 
     public function startGame()
@@ -33,9 +33,7 @@ class PlayGame21
         if (isset($_POST["start"])) {
             $_SESSION["playerSum"] = 0;
             $_SESSION["dataSum"] = 0;
-            return true;
         }
-        return false;
     }
 
     public function getNumberOfDices()
@@ -57,7 +55,7 @@ class PlayGame21
         return $this->res;
     }
 
-    public function rollPlayer($playerSum)
+    public function rollPlayer($playerSum, $cheat = 0)
     {
         $diceHand = new DiceHand();
         $diceHand = addDices($diceHand, $this->numberOfDices);
@@ -66,7 +64,7 @@ class PlayGame21
         $playerSum += $diceHand->sum();
         $this->res["playerSum"] = $playerSum;
         $this->res["graphicalDice"] = $diceHand->getGraphics();
-        if ((int)$playerSum == 21) {
+        if ((int)$playerSum == 21 || $cheat == 21) {
             $_SESSION["playerWins"] += 1;
             $_SESSION["playerWinner"] = true;
             $this->res["result"] = "Congratulations! You won, computer lost.";

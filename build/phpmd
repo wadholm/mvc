@@ -1,1 +1,2 @@
 /Users/mwadholm/dbwebb-kurser/mvc/me/game/src/Controller/Debug.php:24	Avoid using static access to class '\Nyholm\Psr7\Stream' in method '__invoke'.
+/Users/mwadholm/dbwebb-kurser/mvc/me/game/test/Game/YatzyTest.php:12	The class YatzyTest has 14 public methods. Consider refactoring YatzyTest to keep number of public methods under 10.
