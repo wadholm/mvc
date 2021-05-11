@@ -34,43 +34,43 @@ class YatzyTest extends TestCase
         $this->assertEquals($exp, $_SESSION["result"]);
     }
 
-    /**
-     * Test to get the starting number of dices
-     */
-    protected function testGetFirstNumberOfDices()
-    {
-        $game = new PlayYatzy();
+    // /**
+    //  * Test to get the starting number of dices
+    //  */
+    // protected function testGetFirstNumberOfDices()
+    // {
+    //     $game = new PlayYatzy();
 
-        $res = $game->getFirstNumberOfDices();
-        $exp = 5;
-        $this->assertEquals($exp, $res);
-    }
+    //     $res = $game->getFirstNumberOfDices();
+    //     $exp = 5;
+    //     $this->assertEquals($exp, $res);
+    // }
 
-    /**
-     * Test to get number of dices
-     */
-    public function testGetNumberOfDices()
-    {
-        $game = new PlayYatzy();
+    // /**
+    //  * Test to get number of dices
+    //  */
+    // public function testGetNumberOfDices()
+    // {
+    //     $game = new PlayYatzy();
 
-        $_POST["dices"] = 4;
-        $res = $game->getNumberOfDices();
-        $exp = 4;
-        $this->assertEquals($exp, $res);
-    }
+    //     $_POST["dices"] = 4;
+    //     $res = $game->getNumberOfDices();
+    //     $exp = 4;
+    //     $this->assertEquals($exp, $res);
+    // }
 
-    /**
-     * Test to get checked boxes
-     */
-    public function testGetCheckedBoxes()
-    {
-        $game = new PlayYatzy();
+    // /**
+    //  * Test to get checked boxes
+    //  */
+    // public function testGetCheckedBoxes()
+    // {
+    //     $game = new PlayYatzy();
 
-        $_POST["dice-1"] = 1;
-        $_POST["round"] = 1;
-        $res = $game->getCheckedBoxes();
-        $this->assertIsInt($res);
-    }
+    //     $_POST["dice-1"] = 1;
+    //     $_POST["round"] = 1;
+    //     $res = $game->getCheckedBoxes();
+    //     $this->assertIsInt($res);
+    // }
 
     /**
      * Test to get session rounds
@@ -237,34 +237,34 @@ class YatzyTest extends TestCase
         $this->assertIsArray($res);
     }
 
-    /**
-     * Test to calculate total score
-     */
-    public function testCalculateTotalScore()
-    {
-        $game = new PlayYatzy();
-        $score = [1, 2, 3];
+    // /**
+    //  * Test to calculate total score
+    //  */
+    // public function testCalculateTotalScore()
+    // {
+    //     $game = new PlayYatzy();
+    //     $score = [1, 2, 3];
 
-        $res = $game->calculateTotalScore($score);
-        $exp = 6;
+    //     $res = $game->calculateTotalScore($score);
+    //     $exp = 6;
 
-        $this->assertEquals($exp, $res);
-    }
+    //     $this->assertEquals($exp, $res);
+    // }
 
-    /**
-     * Test to check for bonus false
-     */
-    public function testCheckForBonusFalse()
-    {
-        $game = new PlayYatzy();
+    // /**
+    //  * Test to check for bonus false
+    //  */
+    // public function testCheckForBonusFalse()
+    // {
+    //     $game = new PlayYatzy();
 
-        $game->getSessionRounds();
+    //     $game->getSessionRounds();
 
-        $res = $game->checkForBonus();
-        $exp = false;
+    //     $res = $game->checkForBonus();
+    //     $exp = false;
 
-        $this->assertEquals($exp, $res);
-    }
+    //     $this->assertEquals($exp, $res);
+    // }
 
     /**
      * Test to caheck for bonus true

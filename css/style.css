@@ -21,6 +21,7 @@ main {
     min-height: 25em;
     display: block;
     margin: 1em auto;
+    padding-bottom: 10em
 }
 
 nav {
@@ -184,5 +185,9 @@ footer {
    background-image: linear-gradient(to right, #252525, #0e0504);
    color: #f2f2f2;
    margin-top: 1em;
-   padding: 3em 1em;
+   padding: 1.5em 1em;
+   position: fixed;
+   width: 100%;
+   top: auto;
+   bottom: 0;
 }

@@ -64,7 +64,6 @@ class PlayGame21
         $playerSum += $diceHand->sum();
         $this->res["playerSum"] = $playerSum;
         $this->res["graphicalDice"] = $diceHand->getGraphics();
-        $this->res["result"] = "";
         if ((int)$playerSum == 21 || $cheat == 21) {
             $_SESSION["playerWins"] += 1;
             $_SESSION["playerWinner"] = true;

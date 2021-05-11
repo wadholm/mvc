@@ -57,4 +57,4 @@ $graphics2rolls = $graphics2rolls ?? null;
 <?php elseif ($roll == 3) : ?>
 <button name="rolldices" type="submit" value="rolldices">Next</button>
 <?php endif; ?>
-</form> 
+</form>
