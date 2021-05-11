@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter as Emitter;
 use function Mos\Functions\getRoutePath;
-use Mos\Controller\Error;
+use Mos\Controller\Error as CError;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -46,12 +46,12 @@ $response = null;
 $routeInfo = $dispatcher->dispatch($method, $path);
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
-        $response = (new Error())->do404();
+        $response = (new CError())->do404();
         break;
 
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
         $allowedMethods = $routeInfo[1];
-        $response = (new Error())->do405($allowedMethods);
+        $response = (new CError())->do405($allowedMethods);
         break;
 
     case FastRoute\Dispatcher::FOUND:
