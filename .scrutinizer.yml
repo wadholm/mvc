@@ -12,15 +12,14 @@ build:
           - php-scrutinizer-run
 
     tests-and-coverage:
-      nodes:
-          my-tests:
-              environment:
-                  php:
-                      version: 7.4
-      tests:
-          override:
-              -
-                  command: "make phpunit"
-                  coverage:
-                      file: "build/coverage.clover"
-                      format: "php-clover"
+        my-tests:
+            environment:
+                php:
+                    version: 7.4
+    tests:
+        override:
+            -
+                command: "make phpunit"
+                coverage:
+                    file: "build/coverage.clover"
+                    format: "php-clover 
