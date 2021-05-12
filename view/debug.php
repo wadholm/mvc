@@ -16,7 +16,6 @@ use function Mos\Functions\{
     getRoutePath
 };
 
-
 echo "<h1>Debug details</h1>";
 
 var_dump(getBaseUrl());
