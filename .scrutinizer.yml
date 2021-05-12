@@ -3,14 +3,10 @@ imports:
 
 filter:
     excluded_paths: [vendor/*, test/*, htdocs/*]
-build:
-  nodes:
-    analysis:
-      tests:
-        override:
-          - php-scrutinizer-run
 
-    tests-and-coverage:
+build:
+    nodes:
+        my-tests:
             environment:
                 php:
                     version: 7.4
