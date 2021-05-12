@@ -5,15 +5,22 @@ filter:
     excluded_paths: [vendor/*, test/*, htdocs/*]
 
 build:
-    nodes:
-        my-tests:
-            environment:
-                php:
-                    version: 7.4
-    tests:
+  nodes:
+    analysis:
+      tests:
         override:
-            -
-                command: "make phpunit"
-                coverage:
-                    file: "build/coverage.clover"
-                    format: "php-clover"
+          - php-scrutinizer-run
+
+    tests-and-coverage:
+      nodes:
+          my-tests:
+              environment:
+                  php:
+                      version: 7.4
+      tests:
+          override:
+              -
+                  command: "make phpunit"
+                  coverage:
+                      file: "build/coverage.clover"
+                      format: "php-clover"
