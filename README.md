@@ -8,4 +8,4 @@
 
 ### Documentation for repo mvc by mack20.  
 A project to create a dice game playing 21 and Yatzy against the computer. 
-Part of the course mvc at BTH. 
+Part of the course mvc at BTH.
